@@ -15,6 +15,8 @@ import { auth } from './firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { sessionManager } from './utils/sessionManager';
 
+import { Analytics } from "@vercel/analytics/next"
+
 // ProtectedRoute component
 function ProtectedRoute({ children }) {
   const [user, setUser] = useState(null);
