@@ -15,7 +15,7 @@ import { auth } from './firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { sessionManager } from './utils/sessionManager';
 
-import { Analytics } from "@vercel/analytics/next"
+import { Analytics as VercelAnalytics } from "@vercel/analytics/react"
 
 // ProtectedRoute component
 function ProtectedRoute({ children }) {
@@ -116,6 +116,7 @@ function App() {
           />
         </Routes>
       </BrowserRouter>
+      <VercelAnalytics />
     </div>
     </ErrorBoundary>
   );
