@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Firebase sensitive files
+serviceAccountKey.json
+*serviceAccountKey.json
+firestore-import/serviceAccountKey.json
