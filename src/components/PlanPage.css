@@ -1,0 +1,255 @@
+/* PLAN PAGE SPECIFIC STYLES */
+
+.plan-page {
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  background: linear-gradient(120deg, #181c24 0%, #23272f 100%);
+}
+
+/* Back Button */
+.plan-back-button {
+  position: absolute;
+  top: 28px;
+  left: 28px;
+  background: rgba(0,255,255,0.12);
+  border: none;
+  border-radius: 8px;
+  color: var(--primary-cyan);
+  font-weight: 700;
+  font-size: 18px;
+  padding: 8px 22px;
+  cursor: pointer;
+  box-shadow: 0 0 8px #0ff4;
+  z-index: 2100;
+  transition: all var(--transition-fast);
+}
+
+.plan-back-button:hover {
+  background: rgba(0,255,255,0.2);
+  transform: translateY(-1px);
+}
+
+/* Resource Panel */
+.resource-panel {
+  position: absolute;
+  top: 15%;
+  left: 0;
+  width: 15vw;
+  min-width: 120px;
+  height: 70vh;
+  background: rgba(24,28,36,0.85);
+  border-top-right-radius: 36px;
+  border-bottom-right-radius: 36px;
+  box-shadow: 4px 0 24px #0ff3;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 8px 18px 8px;
+  backdrop-filter: blur(4px);
+}
+
+.resource-panel h4 {
+  color: var(--primary-cyan);
+  margin: 18px 0;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.resource-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  width: 100%;
+  justify-items: center;
+  margin-bottom: 12px;
+}
+
+.resource-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.resource-icon {
+  cursor: grab;
+  filter: drop-shadow(0 0 8px var(--primary-cyan));
+  transition: transform var(--transition-fast);
+}
+
+.resource-icon:hover {
+  transform: scale(1.1);
+}
+
+.resource-icon:active {
+  cursor: grabbing;
+}
+
+.resource-input {
+  width: 38px;
+  background: #181c24;
+  border: 1.5px solid;
+  border-radius: 4px;
+  margin-top: 4px;
+  text-align: center;
+  font-size: 12px;
+  outline: none;
+}
+
+.resource-input.school {
+  color: deepskyblue;
+  border-color: deepskyblue;
+}
+
+.resource-input.water {
+  color: limegreen;
+  border-color: limegreen;
+}
+
+.resource-unit {
+  font-size: 10px;
+}
+
+.resource-unit.school {
+  color: deepskyblue;
+}
+
+.resource-unit.water {
+  color: limegreen;
+}
+
+.resource-instruction {
+  font-size: 0.8em;
+  color: var(--primary-cyan);
+  margin-top: 8px;
+  text-align: center;
+}
+
+/* Save Button */
+.plan-save-button {
+  position: absolute;
+  left: 32px;
+  bottom: 32px;
+  width: 11vw;
+  min-width: 90px;
+  padding: 10px 0;
+  font-size: 18px;
+  border-radius: 10px;
+  border: none;
+  background: linear-gradient(90deg, var(--primary-cyan), var(--primary-blue));
+  color: var(--dark-bg);
+  font-weight: 700;
+  letter-spacing: 1px;
+  box-shadow: 0 0 16px #0ff8;
+  cursor: pointer;
+  outline: none;
+  z-index: 2100;
+  transition: all var(--transition-fast);
+}
+
+.plan-save-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0 24px #0ff8;
+}
+
+/* Map Container */
+.map-container {
+  height: 100vh;
+  width: 100vw;
+}
+
+.leaflet-container {
+  height: 100%;
+  width: 100%;
+}
+
+/* Icon Overlay Controls */
+.icon-overlay {
+  position: absolute;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+.icon-overlay-image {
+  pointer-events: auto;
+  cursor: move;
+  box-shadow: 0 0 8px #0ff8;
+  border: 2px solid var(--primary-cyan);
+  border-radius: 8px;
+  background: rgba(0,0,0,0.2);
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.control-handle {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  background: var(--primary-cyan);
+  border-radius: 50%;
+  border: 2px solid #23272f;
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.resize-handle {
+  right: -10px;
+  bottom: -10px;
+  cursor: nwse-resize;
+}
+
+.rotate-handle {
+  left: 50%;
+  top: -28px;
+  transform: translateX(-50%);
+  cursor: grab;
+}
+
+.remove-handle {
+  right: -12px;
+  top: -12px;
+  width: 20px;
+  height: 20px;
+  background: #f55;
+  border: 2px solid #fff;
+  color: #fff;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.control-icon {
+  color: #23272f;
+  font-weight: bold;
+  font-size: 12px;
+  user-select: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .resource-panel {
+    width: 20vw;
+    min-width: 100px;
+    padding: 20px 6px 12px 6px;
+  }
+  
+  .plan-back-button,
+  .plan-save-button {
+    font-size: 16px;
+    padding: 6px 16px;
+  }
+  
+  .resource-grid {
+    gap: 8px;
+  }
+  
+  .resource-icon {
+    width: 32px !important;
+    height: 32px !important;
+  }
+}

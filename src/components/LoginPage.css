@@ -1,0 +1,226 @@
+/* LOGIN PA/* Vanta Globe Background - positioned behind all other elements */
+.vanta-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none; /* Allow clicks to pass through to elements behind */
+  opacity: 0.6; /* Make it slightly transparent so it doesn't overpower the UI */
+  transform: scaleX(-1); /* Flip horizontally along Y-axis */
+}
+
+/* Main page container - full screen with gradient background */
+.login-page {
+  min-height: 100vh;
+  min-width: 100vw;
+  background: linear-gradient(120deg, var(--dark-bg) 0%, var(--dark-secondary) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Vanta Globe Background - positioned behind all other elements */
+.vanta-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none; /* Allow clicks to pass through to elements behind */
+  opacity: 0.4; /* Make it slightly transparent so it doesn't overpower the UI */
+}
+
+
+/* Main page title - positioned at top left with glowing cyan effect */
+.login-heading {
+  position: absolute;
+  top: 32px;
+  left: 48px;
+  font-size: 44px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: var(--primary-cyan);
+  text-shadow: 0 0 2px var(--primary-cyan), 0 2px 8px #222; /* Reduced glow from 4px to 2px */
+  z-index: 2;
+  user-select: none;
+}
+
+/* Login form container - glass morphism card positioned center-right */
+.login-container {
+  position: absolute;
+  top: 50%;
+  left: 65%;
+  transform: translate(-50%, -50%);
+  min-width: 340px;
+  padding: 40px 32px 32px 32px;
+  border-radius: 24px;
+  background: var(--glass-bg);
+  box-shadow: 0 0px 8px 0 #0ff4; /* Reduced glow from 16px to 8px */
+  border: 1.5px solid var(--primary-cyan);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 2;
+  /* animation: glow 2s infinite alternate; */ /* Commented out the pulsing glow animation */
+}
+
+/* Login form title - "Digital Twin Login" text */
+.login-title {
+  margin-bottom: 28px;
+  font-size: 28px;
+  color: var(--primary-cyan);
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-shadow: 0 0 4px var(--primary-cyan); /* Reduced glow from 8px to 4px */
+}
+
+/* Form input container wrapper */
+.login-input-block {
+  width: 260px;
+  margin: 0 auto 8px auto;
+}
+
+/* Standard input fields - username and password with glass effect */
+.login-input {
+  margin: 14px 0;
+  padding: 12px 16px;
+  font-size: 18px;
+  width: 260px;
+  border: none;
+  border-radius: 8px;
+  background: rgba(0,255,255,0.08);
+  color: var(--primary-cyan);
+  box-shadow: 0 1px 4px #0ff2; /* Reduced glow from 2px 8px to 1px 4px */
+  transition: box-shadow var(--transition-fast), background var(--transition-fast);
+}
+
+/* Input focus state - enhanced glow effect */
+.login-input:focus {
+  box-shadow: 0 2px 8px #0ff4; /* Reduced glow from 4px 16px to 2px 8px */
+  background: rgba(0,255,255,0.12);
+}
+
+/* Placeholder text styling */
+.login-input::placeholder {
+  color: rgba(0,255,255,0.6);
+}
+
+/* Password field container - allows positioning of eye icon */
+.password-container {
+  position: relative;
+  width: 100%;
+}
+
+/* Password input field - extends full width of container */
+.password-input {
+  margin-bottom: 0;
+  width: 100%;
+}
+
+/* Show/hide password toggle button - eye icon */
+.eye-button {
+  position: absolute;
+  right: 14px;
+  top: 18px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  color: var(--primary-cyan);
+  padding: 0;
+}
+
+/* Eye button hover effect */
+.eye-button:hover {
+  opacity: 0.8;
+}
+
+/* Login submit button - gradient background with glow animation */
+.login-button {
+  margin-top: 24px;
+  padding: 12px 0;
+  font-size: 20px;
+  border-radius: 8px;
+  width: 100%;
+  background: linear-gradient(90deg, var(--primary-cyan), var(--primary-blue));
+  color: var(--dark-bg);
+  font-weight: 700;
+  letter-spacing: 1px;
+  box-shadow: 0 0 2px #0ff8;
+  transition: background var(--transition-fast), box-shadow var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+  /* animation: glow 2s infinite alternate; */ /* Commented out the pulsing glow animation */
+}
+
+/* Login button hover state - enhanced glow and lift effect */
+.login-button:hover:not(:disabled) {
+  box-shadow: 0 0 4px #0ff8;
+  transform: translateY(-1px);
+}
+
+/* Login button disabled state - during loading */
+.login-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Error message display - shown when login fails */
+.login-error {
+  color: var(--error-red);
+  margin-top: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  /*text-shadow: 0 0 0px #fff;*/
+  text-align: center;
+}
+
+/* Loading spinner - shown during login process */
+.login-spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid var(--primary-cyan);
+  border-top: 3px solid var(--primary-blue);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  vertical-align: middle;
+}
+
+/* Add this rule to make the "New user?" text white */
+.login-container > div[style*="margin-top: 16"] {
+  color: #fff !important;
+}
+
+/* Responsive Design - Mobile and tablet adjustments */
+@media (max-width: 768px) {
+  /* Smaller main heading for mobile screens */
+  .login-heading {
+    font-size: 32px;
+    top: 20px;
+    left: 20px;
+  }
+  
+  /* Center login container on mobile and reduce size */
+  .login-container {
+    left: 50%;
+    min-width: 300px;
+    padding: 30px 20px;
+  }
+  
+  /* Narrower input fields for mobile */
+  .login-input-block,
+  .login-input {
+    width: 240px;
+  }
+  
+  /* Hide or reduce Spline background on mobile for better performance */
+  .spline-background {
+    opacity: 0.3; /* More transparent on mobile */
+    /* Alternatively, you can hide it completely: display: none; */
+  }
+}

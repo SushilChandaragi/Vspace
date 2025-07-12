@@ -1,0 +1,105 @@
+/* GLOBAL STYLES FOR DIGITAL TWIN PLANNER */
+
+/* Import futuristic Google Font for entire app */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+
+/* CSS Custom Properties (Global Variables) */
+:root {
+  /* Color Scheme */
+  --primary-cyan: #0ff;
+  --primary-blue: #09f;
+  --dark-bg: #000;
+  --dark-secondary: #111;
+  --glass-bg: rgba(20,20,30,0.85);
+  --error-red: #ff4d4f;
+  
+  /* Typography */
+  --font-primary: 'Orbitron', 'Segoe UI', Arial, sans-serif;
+  --font-family: 'Orbitron', 'Segoe UI', Arial, sans-serif;
+  --text-primary: #fff;
+  
+  /* Transitions */
+  --transition-fast: 0.2s;
+  --transition-medium: 0.3s;
+  
+  /* Font optimization */
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Global Reset & Base Styles */
+* {
+  box-sizing: border-box;
+}
+
+body, #root {
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-primary);
+  overflow-x: hidden; /* Prevent horizontal scrollbars only */
+}
+
+/* Remove default button styles to allow custom styling */
+button {
+  border: none;
+  background: none;
+  font-family: inherit;
+  cursor: pointer;
+  outline: none;
+}
+
+/* Remove default input styles */
+input {
+  font-family: inherit;
+  outline: none;
+}
+
+/* Global Utility Classes */
+.full-screen {
+  height: 100vh;
+  width: 100vw;
+}
+
+.glass-morphism {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.cyan-glow {
+  box-shadow: 0 0 16px var(--primary-cyan);
+}
+
+/* GLOBAL ANIMATIONS */
+
+/* Spinner rotation for loading states */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Glow pulsing effect for interactive elements */
+@keyframes glow {
+  from {
+    box-shadow: 0 0 16px #b7be9a80, 0 0 32px #a4755140;
+    border-color: #b7be9a;
+  }
+  to {
+    box-shadow: 0 0 32px #b7be9a, 0 0 64px #a4755180;
+    border-color: #a47551;
+  }
+}
+
+/* Cyan glow animation for login elements */
+@keyframes cyan-glow {
+  from {
+    box-shadow: 0 0 16px var(--primary-cyan);
+  }
+  to {
+    box-shadow: 0 0 32px var(--primary-cyan);
+  }
+}

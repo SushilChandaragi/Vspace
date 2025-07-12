@@ -1,0 +1,1402 @@
+[
+  {
+    "houseId": "H001",
+    "latitude": 15.849683,
+    "longitude": 74.494323,
+    "residents": 4,
+    "students": 0
+  },
+  {
+    "houseId": "H002",
+    "latitude": 15.85981,
+    "longitude": 74.510949,
+    "residents": 5,
+    "students": 2
+  },
+  {
+    "houseId": "H003",
+    "latitude": 15.843144,
+    "longitude": 74.497024,
+    "residents": 8,
+    "students": 0
+  },
+  {
+    "houseId": "H004",
+    "latitude": 15.860117,
+    "longitude": 74.499825,
+    "residents": 3,
+    "students": 1
+  },
+  {
+    "houseId": "H005",
+    "latitude": 15.836968,
+    "longitude": 74.499142,
+    "residents": 4,
+    "students": 2
+  },
+  {
+    "houseId": "H006",
+    "latitude": 15.847806,
+    "longitude": 74.490022,
+    "residents": 8,
+    "students": 1
+  },
+  {
+    "houseId": "H007",
+    "latitude": 15.84605,
+    "longitude": 74.501958,
+    "residents": 4,
+    "students": 0
+  },
+  {
+    "houseId": "H008",
+    "latitude": 15.837903,
+    "longitude": 74.485464,
+    "residents": 4,
+    "students": 0
+  },
+  {
+    "houseId": "H009",
+    "latitude": 15.852617,
+    "longitude": 74.486786,
+    "residents": 5,
+    "students": 0
+  },
+  {
+    "houseId": "H010",
+    "latitude": 15.861263,
+    "longitude": 74.489971,
+    "residents": 8,
+    "students": 1
+  },
+  {
+    "houseId": "H011",
+    "latitude": 15.856053,
+    "longitude": 74.512483,
+    "residents": 8,
+    "students": 1
+  },
+  {
+    "houseId": "H012",
+    "latitude": 15.849681,
+    "longitude": 74.50558,
+    "residents": 3,
+    "students": 0
+  },
+  {
+    "houseId": "H013",
+    "latitude": 15.861851,
+    "longitude": 74.495905,
+    "residents": 8,
+    "students": 3
+  },
+  {
+    "houseId": "H014",
+    "latitude": 15.845077,
+    "longitude": 74.488893,
+    "residents": 3,
+    "students": 1
+  },
+  {
+    "houseId": "H015",
+    "latitude": 15.84581,
+    "longitude": 74.496298,
+    "residents": 4,
+    "students": 2
+  },
+  {
+    "houseId": "H016",
+    "latitude": 15.861241,
+    "longitude": 74.507511,
+    "residents": 3,
+    "students": 0
+  },
+  {
+    "houseId": "H017",
+    "latitude": 15.83645,
+    "longitude": 74.50527,
+    "residents": 5,
+    "students": 2
+  },
+  {
+    "houseId": "H018",
+    "latitude": 15.850189,
+    "longitude": 74.498401,
+    "residents": 8,
+    "students": 3
+  },
+  {
+    "houseId": "H019",
+    "latitude": 15.855708,
+    "longitude": 74.485936,
+    "residents": 8,
+    "students": 3
+  },
+  {
+    "houseId": "H020",
+    "latitude": 15.849427,
+    "longitude": 74.489391,
+    "residents": 3,
+    "students": 3
+  },
+  {
+    "houseId": "H021",
+    "latitude": 15.837252,
+    "longitude": 74.510827,
+    "residents": 7,
+    "students": 0
+  },
+  {
+    "houseId": "H022",
+    "latitude": 15.847482,
+    "longitude": 74.499783,
+    "residents": 5,
+    "students": 1
+  },
+  {
+    "houseId": "H023",
+    "latitude": 15.86448,
+    "longitude": 74.501977,
+    "residents": 5,
+    "students": 1
+  },
+  {
+    "houseId": "H024",
+    "latitude": 15.854982,
+    "longitude": 74.485285,
+    "residents": 6,
+    "students": 1
+  },
+  {
+    "houseId": "H025",
+    "latitude": 15.851659,
+    "longitude": 74.507704,
+    "residents": 4,
+    "students": 3
+  },
+  {
+    "houseId": "H026",
+    "latitude": 15.839951,
+    "longitude": 74.508866,
+    "residents": 4,
+    "students": 0
+  },
+  {
+    "houseId": "H027",
+    "latitude": 15.83619,
+    "longitude": 74.506852,
+    "residents": 6,
+    "students": 0
+  },
+  {
+    "houseId": "H028",
+    "latitude": 15.863925,
+    "longitude": 74.487634,
+    "residents": 8,
+    "students": 3
+  },
+  {
+    "houseId": "H029",
+    "latitude": 15.835633,
+    "longitude": 74.49602,
+    "residents": 6,
+    "students": 2
+  },
+  {
+    "houseId": "H030",
+    "latitude": 15.845333,
+    "longitude": 74.484837,
+    "residents": 6,
+    "students": 1
+  },
+  {
+    "houseId": "H031",
+    "latitude": 15.856844,
+    "longitude": 74.499848,
+    "residents": 5,
+    "students": 0
+  },
+  {
+    "houseId": "H032",
+    "latitude": 15.846421,
+    "longitude": 74.503682,
+    "residents": 3,
+    "students": 0
+  },
+  {
+    "houseId": "H033",
+    "latitude": 15.863283,
+    "longitude": 74.488445,
+    "residents": 5,
+    "students": 1
+  },
+  {
+    "houseId": "H034",
+    "latitude": 15.839275,
+    "longitude": 74.511338,
+    "residents": 4,
+    "students": 3
+  },
+  {
+    "houseId": "H035",
+    "latitude": 15.860259,
+    "longitude": 74.498792,
+    "residents": 8,
+    "students": 0
+  },
+  {
+    "houseId": "H036",
+    "latitude": 15.858061,
+    "longitude": 74.510166,
+    "residents": 7,
+    "students": 2
+  },
+  {
+    "houseId": "H037",
+    "latitude": 15.852971,
+    "longitude": 74.494577,
+    "residents": 5,
+    "students": 1
+  },
+  {
+    "houseId": "H038",
+    "latitude": 15.852527,
+    "longitude": 74.486569,
+    "residents": 6,
+    "students": 1
+  },
+  {
+    "houseId": "H039",
+    "latitude": 15.855997,
+    "longitude": 74.509542,
+    "residents": 4,
+    "students": 1
+  },
+  {
+    "houseId": "H040",
+    "latitude": 15.842326,
+    "longitude": 74.49195,
+    "residents": 5,
+    "students": 1
+  },
+  {
+    "houseId": "H041",
+    "latitude": 15.848908,
+    "longitude": 74.512222,
+    "residents": 5,
+    "students": 1
+  },
+  {
+    "houseId": "H042",
+    "latitude": 15.856427,
+    "longitude": 74.508706,
+    "residents": 4,
+    "students": 2
+  },
+  {
+    "houseId": "H043",
+    "latitude": 15.835359,
+    "longitude": 74.493361,
+    "residents": 4,
+    "students": 3
+  },
+  {
+    "houseId": "H044",
+    "latitude": 15.839188,
+    "longitude": 74.488953,
+    "residents": 7,
+    "students": 1
+  },
+  {
+    "houseId": "H045",
+    "latitude": 15.850718,
+    "longitude": 74.490664,
+    "residents": 8,
+    "students": 3
+  },
+  {
+    "houseId": "H046",
+    "latitude": 15.843311,
+    "longitude": 74.50641,
+    "residents": 5,
+    "students": 2
+  },
+  {
+    "houseId": "H047",
+    "latitude": 15.851833,
+    "longitude": 74.50727,
+    "residents": 4,
+    "students": 1
+  },
+  {
+    "houseId": "H048",
+    "latitude": 15.852822,
+    "longitude": 74.505515,
+    "residents": 4,
+    "students": 0
+  },
+  {
+    "houseId": "H049",
+    "latitude": 15.862413,
+    "longitude": 74.501589,
+    "residents": 5,
+    "students": 0
+  },
+  {
+    "houseId": "H050",
+    "latitude": 15.857763,
+    "longitude": 74.482898,
+    "residents": 8,
+    "students": 0
+  },
+  {
+    "houseId": "H051",
+    "latitude": 15.859548,
+    "longitude": 74.487175,
+    "residents": 3,
+    "students": 1
+  },
+  {
+    "houseId": "H052",
+    "latitude": 15.843509,
+    "longitude": 74.494861,
+    "residents": 8,
+    "students": 0
+  },
+  {
+    "houseId": "H053",
+    "latitude": 15.855819,
+    "longitude": 74.491952,
+    "residents": 3,
+    "students": 2
+  },
+  {
+    "houseId": "H054",
+    "latitude": 15.849412,
+    "longitude": 74.508083,
+    "residents": 4,
+    "students": 2
+  },
+  {
+    "houseId": "H055",
+    "latitude": 15.848802,
+    "longitude": 74.510717,
+    "residents": 6,
+    "students": 1
+  },
+  {
+    "houseId": "H056",
+    "latitude": 15.854129,
+    "longitude": 74.493592,
+    "residents": 6,
+    "students": 2
+  },
+  {
+    "houseId": "H057",
+    "latitude": 15.857017,
+    "longitude": 74.511021,
+    "residents": 5,
+    "students": 1
+  },
+  {
+    "houseId": "H058",
+    "latitude": 15.84018,
+    "longitude": 74.48895,
+    "residents": 3,
+    "students": 1
+  },
+  {
+    "houseId": "H059",
+    "latitude": 15.852703,
+    "longitude": 74.512158,
+    "residents": 4,
+    "students": 3
+  },
+  {
+    "houseId": "H060",
+    "latitude": 15.842509,
+    "longitude": 74.499743,
+    "residents": 5,
+    "students": 0
+  },
+  {
+    "houseId": "H061",
+    "latitude": 15.862869,
+    "longitude": 74.49556,
+    "residents": 7,
+    "students": 2
+  },
+  {
+    "houseId": "H062",
+    "latitude": 15.861169,
+    "longitude": 74.50435,
+    "residents": 6,
+    "students": 0
+  },
+  {
+    "houseId": "H063",
+    "latitude": 15.843999,
+    "longitude": 74.483721,
+    "residents": 3,
+    "students": 3
+  },
+  {
+    "houseId": "H064",
+    "latitude": 15.861292,
+    "longitude": 74.492914,
+    "residents": 8,
+    "students": 3
+  },
+  {
+    "houseId": "H065",
+    "latitude": 15.8423,
+    "longitude": 74.49144,
+    "residents": 6,
+    "students": 3
+  },
+  {
+    "houseId": "H066",
+    "latitude": 15.834936,
+    "longitude": 74.497562,
+    "residents": 6,
+    "students": 1
+  },
+  {
+    "houseId": "H067",
+    "latitude": 15.863802,
+    "longitude": 74.483165,
+    "residents": 7,
+    "students": 1
+  },
+  {
+    "houseId": "H068",
+    "latitude": 15.841722,
+    "longitude": 74.487302,
+    "residents": 8,
+    "students": 1
+  },
+  {
+    "houseId": "H069",
+    "latitude": 15.859537,
+    "longitude": 74.50242,
+    "residents": 4,
+    "students": 2
+  },
+  {
+    "houseId": "H070",
+    "latitude": 15.860523,
+    "longitude": 74.503917,
+    "residents": 8,
+    "students": 2
+  },
+  {
+    "houseId": "H071",
+    "latitude": 15.84463,
+    "longitude": 74.504008,
+    "residents": 6,
+    "students": 2
+  },
+  {
+    "houseId": "H072",
+    "latitude": 15.860908,
+    "longitude": 74.485734,
+    "residents": 3,
+    "students": 1
+  },
+  {
+    "houseId": "H073",
+    "latitude": 15.837662,
+    "longitude": 74.50939,
+    "residents": 7,
+    "students": 1
+  },
+  {
+    "houseId": "H074",
+    "latitude": 15.864034,
+    "longitude": 74.494188,
+    "residents": 6,
+    "students": 2
+  },
+  {
+    "houseId": "H075",
+    "latitude": 15.850592,
+    "longitude": 74.498062,
+    "residents": 6,
+    "students": 2
+  },
+  {
+    "houseId": "H076",
+    "latitude": 15.844712,
+    "longitude": 74.508411,
+    "residents": 6,
+    "students": 1
+  },
+  {
+    "houseId": "H077",
+    "latitude": 15.844844,
+    "longitude": 74.49631,
+    "residents": 4,
+    "students": 0
+  },
+  {
+    "houseId": "H078",
+    "latitude": 15.835713,
+    "longitude": 74.496503,
+    "residents": 8,
+    "students": 0
+  },
+  {
+    "houseId": "H079",
+    "latitude": 15.840059,
+    "longitude": 74.504368,
+    "residents": 6,
+    "students": 3
+  },
+  {
+    "houseId": "H080",
+    "latitude": 15.860837,
+    "longitude": 74.49084,
+    "residents": 8,
+    "students": 3
+  },
+  {
+    "houseId": "H081",
+    "latitude": 15.861922,
+    "longitude": 74.504275,
+    "residents": 4,
+    "students": 1
+  },
+  {
+    "houseId": "H082",
+    "latitude": 15.857826,
+    "longitude": 74.487618,
+    "residents": 5,
+    "students": 1
+  },
+  {
+    "houseId": "H083",
+    "latitude": 15.858587,
+    "longitude": 74.504944,
+    "residents": 6,
+    "students": 0
+  },
+  {
+    "houseId": "H084",
+    "latitude": 15.837022,
+    "longitude": 74.488029,
+    "residents": 3,
+    "students": 1
+  },
+  {
+    "houseId": "H085",
+    "latitude": 15.837979,
+    "longitude": 74.509996,
+    "residents": 3,
+    "students": 2
+  },
+  {
+    "houseId": "H086",
+    "latitude": 15.844064,
+    "longitude": 74.507922,
+    "residents": 7,
+    "students": 0
+  },
+  {
+    "houseId": "H087",
+    "latitude": 15.839679,
+    "longitude": 74.508704,
+    "residents": 8,
+    "students": 0
+  },
+  {
+    "houseId": "H088",
+    "latitude": 15.860287,
+    "longitude": 74.509737,
+    "residents": 7,
+    "students": 0
+  },
+  {
+    "houseId": "H089",
+    "latitude": 15.858292,
+    "longitude": 74.500032,
+    "residents": 6,
+    "students": 1
+  },
+  {
+    "houseId": "H090",
+    "latitude": 15.841525,
+    "longitude": 74.502753,
+    "residents": 5,
+    "students": 3
+  },
+  {
+    "houseId": "H091",
+    "latitude": 15.852091,
+    "longitude": 74.498803,
+    "residents": 4,
+    "students": 0
+  },
+  {
+    "houseId": "H092",
+    "latitude": 15.839068,
+    "longitude": 74.497975,
+    "residents": 4,
+    "students": 3
+  },
+  {
+    "houseId": "H093",
+    "latitude": 15.858676,
+    "longitude": 74.505342,
+    "residents": 8,
+    "students": 0
+  },
+  {
+    "houseId": "H094",
+    "latitude": 15.85438,
+    "longitude": 74.50873,
+    "residents": 4,
+    "students": 3
+  },
+  {
+    "houseId": "H095",
+    "latitude": 15.83563,
+    "longitude": 74.506243,
+    "residents": 5,
+    "students": 3
+  },
+  {
+    "houseId": "H096",
+    "latitude": 15.849115,
+    "longitude": 74.487344,
+    "residents": 7,
+    "students": 3
+  },
+  {
+    "houseId": "H097",
+    "latitude": 15.849872,
+    "longitude": 74.497853,
+    "residents": 4,
+    "students": 1
+  },
+  {
+    "houseId": "H098",
+    "latitude": 15.858749,
+    "longitude": 74.496022,
+    "residents": 6,
+    "students": 0
+  },
+  {
+    "houseId": "H099",
+    "latitude": 15.835614,
+    "longitude": 74.489993,
+    "residents": 4,
+    "students": 2
+  },
+  {
+    "houseId": "H100",
+    "latitude": 15.851862,
+    "longitude": 74.506731,
+    "residents": 3,
+    "students": 3
+  },
+  {
+    "houseId": "H101",
+    "latitude": 15.847859,
+    "longitude": 74.497355,
+    "residents": 8,
+    "students": 3
+  },
+  {
+    "houseId": "H102",
+    "latitude": 15.843762,
+    "longitude": 74.494028,
+    "residents": 6,
+    "students": 3
+  },
+  {
+    "houseId": "H103",
+    "latitude": 15.855647,
+    "longitude": 74.486247,
+    "residents": 3,
+    "students": 3
+  },
+  {
+    "houseId": "H104",
+    "latitude": 15.850454,
+    "longitude": 74.497106,
+    "residents": 4,
+    "students": 0
+  },
+  {
+    "houseId": "H105",
+    "latitude": 15.839281,
+    "longitude": 74.511457,
+    "residents": 6,
+    "students": 2
+  },
+  {
+    "houseId": "H106",
+    "latitude": 15.861948,
+    "longitude": 74.504955,
+    "residents": 5,
+    "students": 1
+  },
+  {
+    "houseId": "H107",
+    "latitude": 15.848842,
+    "longitude": 74.497323,
+    "residents": 5,
+    "students": 2
+  },
+  {
+    "houseId": "H108",
+    "latitude": 15.834888,
+    "longitude": 74.506253,
+    "residents": 4,
+    "students": 0
+  },
+  {
+    "houseId": "H109",
+    "latitude": 15.850107,
+    "longitude": 74.483911,
+    "residents": 5,
+    "students": 3
+  },
+  {
+    "houseId": "H110",
+    "latitude": 15.849604,
+    "longitude": 74.49738,
+    "residents": 4,
+    "students": 3
+  },
+  {
+    "houseId": "H111",
+    "latitude": 15.840123,
+    "longitude": 74.494824,
+    "residents": 7,
+    "students": 2
+  },
+  {
+    "houseId": "H112",
+    "latitude": 15.843205,
+    "longitude": 74.505853,
+    "residents": 3,
+    "students": 1
+  },
+  {
+    "houseId": "H113",
+    "latitude": 15.837082,
+    "longitude": 74.489043,
+    "residents": 8,
+    "students": 3
+  },
+  {
+    "houseId": "H114",
+    "latitude": 15.855007,
+    "longitude": 74.49913,
+    "residents": 7,
+    "students": 2
+  },
+  {
+    "houseId": "H115",
+    "latitude": 15.847,
+    "longitude": 74.508015,
+    "residents": 8,
+    "students": 0
+  },
+  {
+    "houseId": "H116",
+    "latitude": 15.839242,
+    "longitude": 74.505655,
+    "residents": 8,
+    "students": 2
+  },
+  {
+    "houseId": "H117",
+    "latitude": 15.857344,
+    "longitude": 74.504535,
+    "residents": 3,
+    "students": 2
+  },
+  {
+    "houseId": "H118",
+    "latitude": 15.85345,
+    "longitude": 74.488814,
+    "residents": 5,
+    "students": 3
+  },
+  {
+    "houseId": "H119",
+    "latitude": 15.850186,
+    "longitude": 74.511254,
+    "residents": 6,
+    "students": 1
+  },
+  {
+    "houseId": "H120",
+    "latitude": 15.837981,
+    "longitude": 74.509729,
+    "residents": 8,
+    "students": 0
+  },
+  {
+    "houseId": "H121",
+    "latitude": 15.863264,
+    "longitude": 74.494082,
+    "residents": 4,
+    "students": 3
+  },
+  {
+    "houseId": "H122",
+    "latitude": 15.842833,
+    "longitude": 74.509542,
+    "residents": 3,
+    "students": 3
+  },
+  {
+    "houseId": "H123",
+    "latitude": 15.844038,
+    "longitude": 74.494111,
+    "residents": 3,
+    "students": 2
+  },
+  {
+    "houseId": "H124",
+    "latitude": 15.864691,
+    "longitude": 74.486142,
+    "residents": 3,
+    "students": 3
+  },
+  {
+    "houseId": "H125",
+    "latitude": 15.84644,
+    "longitude": 74.492401,
+    "residents": 5,
+    "students": 2
+  },
+  {
+    "houseId": "H126",
+    "latitude": 15.853641,
+    "longitude": 74.486019,
+    "residents": 3,
+    "students": 2
+  },
+  {
+    "houseId": "H127",
+    "latitude": 15.854526,
+    "longitude": 74.499691,
+    "residents": 8,
+    "students": 2
+  },
+  {
+    "houseId": "H128",
+    "latitude": 15.836877,
+    "longitude": 74.49002,
+    "residents": 8,
+    "students": 2
+  },
+  {
+    "houseId": "H129",
+    "latitude": 15.859124,
+    "longitude": 74.485374,
+    "residents": 7,
+    "students": 3
+  },
+  {
+    "houseId": "H130",
+    "latitude": 15.862536,
+    "longitude": 74.507129,
+    "residents": 3,
+    "students": 3
+  },
+  {
+    "houseId": "H131",
+    "latitude": 15.836205,
+    "longitude": 74.497308,
+    "residents": 6,
+    "students": 1
+  },
+  {
+    "houseId": "H132",
+    "latitude": 15.84043,
+    "longitude": 74.493829,
+    "residents": 4,
+    "students": 3
+  },
+  {
+    "houseId": "H133",
+    "latitude": 15.840174,
+    "longitude": 74.505376,
+    "residents": 3,
+    "students": 3
+  },
+  {
+    "houseId": "H134",
+    "latitude": 15.837197,
+    "longitude": 74.492277,
+    "residents": 6,
+    "students": 0
+  },
+  {
+    "houseId": "H135",
+    "latitude": 15.858529,
+    "longitude": 74.511789,
+    "residents": 4,
+    "students": 3
+  },
+  {
+    "houseId": "H136",
+    "latitude": 15.837532,
+    "longitude": 74.484849,
+    "residents": 7,
+    "students": 3
+  },
+  {
+    "houseId": "H137",
+    "latitude": 15.838258,
+    "longitude": 74.484534,
+    "residents": 4,
+    "students": 0
+  },
+  {
+    "houseId": "H138",
+    "latitude": 15.842167,
+    "longitude": 74.493257,
+    "residents": 6,
+    "students": 2
+  },
+  {
+    "houseId": "H139",
+    "latitude": 15.861241,
+    "longitude": 74.506139,
+    "residents": 3,
+    "students": 0
+  },
+  {
+    "houseId": "H140",
+    "latitude": 15.837169,
+    "longitude": 74.497308,
+    "residents": 5,
+    "students": 3
+  },
+  {
+    "houseId": "H141",
+    "latitude": 15.837111,
+    "longitude": 74.512189,
+    "residents": 8,
+    "students": 3
+  },
+  {
+    "houseId": "H142",
+    "latitude": 15.853238,
+    "longitude": 74.507419,
+    "residents": 6,
+    "students": 0
+  },
+  {
+    "houseId": "H143",
+    "latitude": 15.839316,
+    "longitude": 74.48624,
+    "residents": 6,
+    "students": 2
+  },
+  {
+    "houseId": "H144",
+    "latitude": 15.84139,
+    "longitude": 74.508584,
+    "residents": 3,
+    "students": 3
+  },
+  {
+    "houseId": "H145",
+    "latitude": 15.851108,
+    "longitude": 74.506601,
+    "residents": 4,
+    "students": 1
+  },
+  {
+    "houseId": "H146",
+    "latitude": 15.857208,
+    "longitude": 74.487587,
+    "residents": 6,
+    "students": 1
+  },
+  {
+    "houseId": "H147",
+    "latitude": 15.843916,
+    "longitude": 74.487485,
+    "residents": 3,
+    "students": 3
+  },
+  {
+    "houseId": "H148",
+    "latitude": 15.857515,
+    "longitude": 74.494515,
+    "residents": 6,
+    "students": 1
+  },
+  {
+    "houseId": "H149",
+    "latitude": 15.853987,
+    "longitude": 74.500429,
+    "residents": 5,
+    "students": 3
+  },
+  {
+    "houseId": "H150",
+    "latitude": 15.846713,
+    "longitude": 74.498123,
+    "residents": 5,
+    "students": 1
+  },
+  {
+    "houseId": "H151",
+    "latitude": 15.852934,
+    "longitude": 74.501752,
+    "residents": 3,
+    "students": 0
+  },
+  {
+    "houseId": "H152",
+    "latitude": 15.860001,
+    "longitude": 74.506932,
+    "residents": 6,
+    "students": 3
+  },
+  {
+    "houseId": "H153",
+    "latitude": 15.864407,
+    "longitude": 74.487844,
+    "residents": 8,
+    "students": 3
+  },
+  {
+    "houseId": "H154",
+    "latitude": 15.857344,
+    "longitude": 74.501713,
+    "residents": 4,
+    "students": 3
+  },
+  {
+    "houseId": "H155",
+    "latitude": 15.838698,
+    "longitude": 74.49146,
+    "residents": 8,
+    "students": 1
+  },
+  {
+    "houseId": "H156",
+    "latitude": 15.837751,
+    "longitude": 74.501733,
+    "residents": 3,
+    "students": 1
+  },
+  {
+    "houseId": "H157",
+    "latitude": 15.835639,
+    "longitude": 74.489563,
+    "residents": 4,
+    "students": 3
+  },
+  {
+    "houseId": "H158",
+    "latitude": 15.849086,
+    "longitude": 74.491948,
+    "residents": 3,
+    "students": 1
+  },
+  {
+    "houseId": "H159",
+    "latitude": 15.845755,
+    "longitude": 74.486826,
+    "residents": 6,
+    "students": 3
+  },
+  {
+    "houseId": "H160",
+    "latitude": 15.837249,
+    "longitude": 74.495519,
+    "residents": 4,
+    "students": 3
+  },
+  {
+    "houseId": "H161",
+    "latitude": 15.848683,
+    "longitude": 74.501798,
+    "residents": 8,
+    "students": 3
+  },
+  {
+    "houseId": "H162",
+    "latitude": 15.849761,
+    "longitude": 74.484833,
+    "residents": 7,
+    "students": 1
+  },
+  {
+    "houseId": "H163",
+    "latitude": 15.837263,
+    "longitude": 74.498765,
+    "residents": 8,
+    "students": 1
+  },
+  {
+    "houseId": "H164",
+    "latitude": 15.844076,
+    "longitude": 74.497304,
+    "residents": 5,
+    "students": 3
+  },
+  {
+    "houseId": "H165",
+    "latitude": 15.839444,
+    "longitude": 74.504999,
+    "residents": 3,
+    "students": 3
+  },
+  {
+    "houseId": "H166",
+    "latitude": 15.840577,
+    "longitude": 74.502817,
+    "residents": 3,
+    "students": 3
+  },
+  {
+    "houseId": "H167",
+    "latitude": 15.856131,
+    "longitude": 74.485639,
+    "residents": 4,
+    "students": 2
+  },
+  {
+    "houseId": "H168",
+    "latitude": 15.842651,
+    "longitude": 74.495746,
+    "residents": 3,
+    "students": 3
+  },
+  {
+    "houseId": "H169",
+    "latitude": 15.860439,
+    "longitude": 74.508559,
+    "residents": 8,
+    "students": 1
+  },
+  {
+    "houseId": "H170",
+    "latitude": 15.852188,
+    "longitude": 74.500358,
+    "residents": 6,
+    "students": 2
+  },
+  {
+    "houseId": "H171",
+    "latitude": 15.839564,
+    "longitude": 74.48292,
+    "residents": 4,
+    "students": 1
+  },
+  {
+    "houseId": "H172",
+    "latitude": 15.838543,
+    "longitude": 74.507968,
+    "residents": 3,
+    "students": 0
+  },
+  {
+    "houseId": "H173",
+    "latitude": 15.834831,
+    "longitude": 74.509321,
+    "residents": 4,
+    "students": 2
+  },
+  {
+    "houseId": "H174",
+    "latitude": 15.853525,
+    "longitude": 74.489886,
+    "residents": 7,
+    "students": 3
+  },
+  {
+    "houseId": "H175",
+    "latitude": 15.854147,
+    "longitude": 74.496567,
+    "residents": 7,
+    "students": 1
+  },
+  {
+    "houseId": "H176",
+    "latitude": 15.849505,
+    "longitude": 74.486145,
+    "residents": 7,
+    "students": 3
+  },
+  {
+    "houseId": "H177",
+    "latitude": 15.849208,
+    "longitude": 74.49114,
+    "residents": 6,
+    "students": 1
+  },
+  {
+    "houseId": "H178",
+    "latitude": 15.86088,
+    "longitude": 74.502143,
+    "residents": 5,
+    "students": 3
+  },
+  {
+    "houseId": "H179",
+    "latitude": 15.864053,
+    "longitude": 74.503027,
+    "residents": 6,
+    "students": 1
+  },
+  {
+    "houseId": "H180",
+    "latitude": 15.849523,
+    "longitude": 74.499229,
+    "residents": 3,
+    "students": 3
+  },
+  {
+    "houseId": "H181",
+    "latitude": 15.853977,
+    "longitude": 74.508371,
+    "residents": 6,
+    "students": 0
+  },
+  {
+    "houseId": "H182",
+    "latitude": 15.846071,
+    "longitude": 74.485201,
+    "residents": 8,
+    "students": 3
+  },
+  {
+    "houseId": "H183",
+    "latitude": 15.862151,
+    "longitude": 74.500848,
+    "residents": 5,
+    "students": 0
+  },
+  {
+    "houseId": "H184",
+    "latitude": 15.835512,
+    "longitude": 74.511582,
+    "residents": 8,
+    "students": 0
+  },
+  {
+    "houseId": "H185",
+    "latitude": 15.845411,
+    "longitude": 74.486731,
+    "residents": 7,
+    "students": 1
+  },
+  {
+    "houseId": "H186",
+    "latitude": 15.837808,
+    "longitude": 74.488372,
+    "residents": 3,
+    "students": 1
+  },
+  {
+    "houseId": "H187",
+    "latitude": 15.84791,
+    "longitude": 74.491795,
+    "residents": 4,
+    "students": 0
+  },
+  {
+    "houseId": "H188",
+    "latitude": 15.839087,
+    "longitude": 74.509089,
+    "residents": 4,
+    "students": 0
+  },
+  {
+    "houseId": "H189",
+    "latitude": 15.854475,
+    "longitude": 74.499012,
+    "residents": 3,
+    "students": 2
+  },
+  {
+    "houseId": "H190",
+    "latitude": 15.857864,
+    "longitude": 74.510535,
+    "residents": 7,
+    "students": 0
+  },
+  {
+    "houseId": "H191",
+    "latitude": 15.860524,
+    "longitude": 74.496817,
+    "residents": 4,
+    "students": 1
+  },
+  {
+    "houseId": "H192",
+    "latitude": 15.859913,
+    "longitude": 74.504078,
+    "residents": 7,
+    "students": 1
+  },
+  {
+    "houseId": "H193",
+    "latitude": 15.835963,
+    "longitude": 74.499149,
+    "residents": 3,
+    "students": 3
+  },
+  {
+    "houseId": "H194",
+    "latitude": 15.860207,
+    "longitude": 74.490766,
+    "residents": 8,
+    "students": 2
+  },
+  {
+    "houseId": "H195",
+    "latitude": 15.861115,
+    "longitude": 74.500026,
+    "residents": 5,
+    "students": 2
+  },
+  {
+    "houseId": "H196",
+    "latitude": 15.858461,
+    "longitude": 74.496134,
+    "residents": 4,
+    "students": 2
+  },
+  {
+    "houseId": "H197",
+    "latitude": 15.853286,
+    "longitude": 74.499243,
+    "residents": 6,
+    "students": 3
+  },
+  {
+    "houseId": "H198",
+    "latitude": 15.857401,
+    "longitude": 74.497251,
+    "residents": 5,
+    "students": 1
+  },
+  {
+    "houseId": "H199",
+    "latitude": 15.847445,
+    "longitude": 74.494878,
+    "residents": 5,
+    "students": 2
+  },
+  {
+    "houseId": "H200",
+    "latitude": 15.840247,
+    "longitude": 74.508466,
+    "residents": 8,
+    "students": 2
+  }
+]
