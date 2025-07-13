@@ -904,7 +904,6 @@ function PlanPage() {
                   padding: '10px 32px',
                   fontSize: 18,
                   borderRadius: 8,
-                  border: 'none',
                   background: '#23272f',
                   color: '#0ff',
                   fontWeight: 700,
