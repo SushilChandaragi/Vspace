@@ -1,0 +1,68 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Plans collection rules
+    match /plans/{planId} {
+      // Allow read if user is owner, collaborator, OR plan is public
+      allow read: if request.auth != null && (
+        resource.data.userId == request.auth.uid ||
+        (resource.data.collaborators != null && 
+         request.auth.token.email in resource.data.collaborators)
+      ) || resource.data.isPublic == true;
+      
+      // Allow create if user is authenticated (FIXED: use request.resource.data)
+      allow create: if request.auth != null && 
+        request.auth.uid == request.resource.data.userId;
+      
+      // Allow update if user is owner or collaborator
+      allow update: if request.auth != null && (
+        resource.data.userId == request.auth.uid ||
+        (resource.data.collaborators != null && 
+         request.auth.token.email in resource.data.collaborators)
+      );
+      
+      // Allow delete only if user is owner
+      allow delete: if request.auth != null && 
+        resource.data.userId == request.auth.uid;
+    }
+    
+    // Houses collection (for reference data)
+    match /houses/{houseId} {
+      // Allow read for authenticated users
+      allow read: if request.auth != null;
+    }
+    
+    // Users collection (if needed for user profiles)
+    match /users/{userId} {
+      // Allow read/write for own user document
+      allow read, write: if request.auth != null && 
+        request.auth.uid == userId;
+    }
+    
+    // Databases collection rules
+    match /databases/{dbId} {
+      // Allow read if user is owner, collaborator, OR database is public
+      allow read: if request.auth != null && (
+        resource.data.userId == request.auth.uid ||
+        (resource.data.collaborators != null &&
+         request.auth.token.email in resource.data.collaborators)
+      ) || resource.data.isPublic == true;
+
+      // Allow create if user is authenticated and is the owner
+      allow create: if request.auth != null &&
+        request.auth.uid == request.resource.data.userId;
+
+      // Allow update if user is owner or collaborator
+      allow update: if request.auth != null && (
+        resource.data.userId == request.auth.uid ||
+        (resource.data.collaborators != null &&
+         request.auth.token.email in resource.data.collaborators)
+      );
+
+      // Allow delete only if user is owner
+      allow delete: if request.auth != null &&
+        resource.data.userId == request.auth.uid;
+    }
+  }
+}

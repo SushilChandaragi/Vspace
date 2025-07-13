@@ -416,6 +416,23 @@ function SavedPlans() {
                     ))}
                   </div>
                   <div className="plan-metadata">
+                    <button
+                      style={{
+                        margin: '8px 0',
+                        background: '#0ff',
+                        color: '#181c24',
+                        border: 'none',
+                        borderRadius: 8,
+                        padding: '6px 16px',
+                        fontWeight: 700,
+                        cursor: 'pointer',
+                        fontSize: '0.95em',
+                        boxShadow: '0 0 8px #0ff4',
+                      }}
+                      onClick={() => navigate(`/plan-quality-score/${plan.id}`)}
+                    >
+                      View Plan Quality Score
+                    </button>
                     {/* Remove Size */}
                     {/* <div className="metadata-item">
                       <span className="metadata-label">Size:</span>

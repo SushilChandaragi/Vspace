@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import './App.css';
+
 import LoginPage from './components/LoginPage.jsx';
 import Dashboard from './components/Dashboard.jsx';
 import PlanPage from './components/PlanPage_old.jsx';
@@ -11,6 +12,7 @@ import PlanLocationSelect from "./components/PlanLocationSelect";
 import SignUpPage from './components/SignUpPage';
 import SessionWarning from './components/SessionWarning.jsx';
 import ErrorBoundary from './components/ErrorBoundary.jsx';
+import PlanQualityScore from './components/PlanQualityScore.jsx';
 import { auth } from './firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { sessionManager } from './utils/sessionManager';
@@ -95,6 +97,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <SavedPlans />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/plan-quality-score/:planId"
+            element={
+              <ProtectedRoute>
+                <PlanQualityScore />
               </ProtectedRoute>
             }
           />

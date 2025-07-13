@@ -22,6 +22,7 @@ import {
   removeResourceFromDatabase,
   getPrimaryUserDatabase 
 } from '../utils/databaseOperations';
+import ResourcePopover from './ResourcePopover';
 
 const resourceIcons = {
   // Basic Infrastructure
@@ -128,7 +129,7 @@ function PlanPage() {
   const [planTitle, setPlanTitle] = useState("");
   const [editingPlanId, setEditingPlanId] = useState(null);
   const [houses, setHouses] = useState([]);
-  const [qualityStats, setQualityStats] = useState(null);
+  // Removed: qualityStats state (plan quality score logic is now in analytics page)
   // Database resources state
   const [databaseResources, setDatabaseResources] = useState([]);
   const [primaryDatabase, setPrimaryDatabase] = useState(null);
@@ -147,6 +148,7 @@ function PlanPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const [searchParams] = useSearchParams();
+  const [showResourcePopover, setShowResourcePopover] = useState(false);
 
   // Listen to auth state changes
   useEffect(() => {
@@ -377,6 +379,7 @@ function PlanPage() {
     return () => unsubscribe();
   }, [planId]);
 
+
   // Fetch house data from Firestore
   useEffect(() => {
     const fetchHouses = async () => {
@@ -390,6 +393,23 @@ function PlanPage() {
     };
     fetchHouses();
   }, []);
+
+  // Merge houses from public and database sources
+  const mergedHouses = React.useMemo(() => {
+    let dbHouses = [];
+    if (primaryDatabase && Array.isArray(primaryDatabase.houses)) {
+      dbHouses = primaryDatabase.houses;
+    }
+    // Avoid duplicates by houseId
+    const all = [...houses, ...dbHouses];
+    const seen = new Set();
+    return all.filter(h => {
+      if (!h.houseId) return true;
+      if (seen.has(h.houseId)) return false;
+      seen.add(h.houseId);
+      return true;
+    });
+  }, [houses, primaryDatabase]);
 
   // Load database resources
   useEffect(() => {
@@ -796,86 +816,7 @@ function PlanPage() {
     }
   };
 
-  function getHousesCovered(resource, houses) {
-    if (!resource.position || !resource.radius) return [];
-    const R = 6371000; // Earth radius in meters
-    const toRad = deg => deg * Math.PI / 180;
-    const { lat: lat1, lng: lon1 } = resource.position;
-    return houses.filter(house => {
-      const lat2 = house.lat !== undefined ? house.lat : house.latitude;
-      const lon2 = house.long !== undefined ? house.long : house.longitude;
-      if (lat2 === undefined || lon2 === undefined) return false;
-      // Haversine formula
-      const dLat = toRad(lat2 - lat1);
-      const dLon = toRad(lon2 - lon1);
-      const a = Math.sin(dLat/2)**2 +
-        Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
-        Math.sin(dLon/2)**2;
-      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-      const d = R * c;
-      return d <= resource.radius;
-    });
-  }
-
-  // Call this after placing a resource or when a resource is selected
-  function showQualityForResource(resource) {
-    if (!resource || !resource.radius) return setQualityStats(null);
-    const coveredHouses = getHousesCovered(resource, houses);
-    const studentsCovered = coveredHouses.reduce((sum, h) => sum + (h.students || 0), 0);
-    setQualityStats({
-      type: resource.type,
-      houses: coveredHouses.length,
-      students: studentsCovered,
-      coveredHouses: coveredHouses.map(h => h.houseId)
-    });
-  }
-
-  // Call showQualityForResource when a resource is placed or selected
-  useEffect(() => {
-    if (selectedIdx !== null && droppedResources[selectedIdx]) {
-      showQualityForResource(droppedResources[selectedIdx]);
-    } else {
-      setQualityStats(null);
-    }
-  }, [selectedIdx, droppedResources, houses]);
-
-  // Helper to get letter label: A, B, C, ...
-  const getLetter = idx => String.fromCharCode(65 + idx);
-
-  // Compute stats for all resources
-  function getAllResourceStats(resources, houses) {
-    // Group by type
-    const grouped = {};
-    resources.forEach((res, idx) => {
-      if (!grouped[res.type]) grouped[res.type] = [];
-      grouped[res.type].push({ ...res, idx });
-    });
-
-    // For each resource, compute coverage
-    const stats = [];
-    Object.entries(grouped).forEach(([type, arr]) => {
-      arr.forEach((res, i) => {
-        const coveredHouses = getHousesCovered(res, houses);
-        const residents = coveredHouses.reduce((sum, h) => sum + (h.residents || 0), 0);
-        const students = type === "school"
-          ? coveredHouses.reduce((sum, h) => sum + (h.students || 0), 0)
-          : undefined;
-        stats.push({
-          type,
-          label: `${getDefaultResourceName(type, 0)} ${getLetter(i)}`,
-          houses: coveredHouses.length,
-          residents,
-          students,
-          coveredHouses: coveredHouses.map(h => h.houseId)
-        });
-      });
-    });
-    return stats;
-  }
-
-  const resourceStats = droppedResources.length > 0
-    ? getAllResourceStats(droppedResources, houses)
-    : [];
+  // Removed plan quality score logic
 
   // Show loading state while auth is being resolved
   if (authLoading) {
@@ -897,6 +838,87 @@ function PlanPage() {
 
   return (
     <div style={{ height: '100vh', width: '100vw', position: 'relative', background: 'linear-gradient(120deg, #181c24 0%, #23272f 100%)' }}>
+      {/* Save Plan Modal */}
+      {showSavePopup && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100vw',
+          height: '100vh',
+          background: 'rgba(0,0,0,0.5)',
+          zIndex: 3000,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
+          <div style={{
+            background: '#23272f',
+            borderRadius: 12,
+            padding: 32,
+            minWidth: 320,
+            boxShadow: '0 0 24px #0ff8',
+            color: '#0ff',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}>
+            <h2 style={{ color: '#0ff', marginBottom: 16 }}>Save Plan</h2>
+            <input
+              type="text"
+              value={planTitle}
+              onChange={e => setPlanTitle(e.target.value)}
+              placeholder="Enter plan name"
+              style={{
+                padding: '10px',
+                fontSize: 18,
+                borderRadius: 8,
+                border: '1px solid #0ff',
+                marginBottom: 24,
+                width: '100%',
+                color: '#23272f',
+                background: '#0ff2',
+                outline: 'none',
+              }}
+            />
+            <div style={{ display: 'flex', gap: 16 }}>
+              <button
+                onClick={handleSavePlan}
+                style={{
+                  padding: '10px 32px',
+                  fontSize: 18,
+                  borderRadius: 8,
+                  border: 'none',
+                  background: 'linear-gradient(90deg, #0ff, #09f)',
+                  color: '#23272f',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                  boxShadow: '0 0 8px #0ff8',
+                }}
+              >
+                Save
+              </button>
+              <button
+                onClick={() => setShowSavePopup(false)}
+                style={{
+                  padding: '10px 32px',
+                  fontSize: 18,
+                  borderRadius: 8,
+                  border: 'none',
+                  background: '#23272f',
+                  color: '#0ff',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                  boxShadow: '0 0 8px #0ff8',
+                  border: '1px solid #0ff',
+                }}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       {/* Access Level Indicator */}
       {searchParams.get('id') && (
         <div style={{
@@ -961,32 +983,70 @@ function PlanPage() {
         ← Back
       </button>
 
-      {/* Save Button (bottom left, outside resource panel) */}
+      {/* Resource Popover Button (bottom left) */}
       {canEdit && (
-        <button
-          style={{
-            position: 'absolute',
-            left: 32,
-            bottom: 32,
-            width: '11vw',
-            minWidth: 90,
-            padding: '10px 0',
-            fontSize: 18,
-            borderRadius: 10,
-            border: 'none',
-            background: 'linear-gradient(90deg, #0ff, #09f)',
-            color: '#000',
-            fontWeight: 700,
-            letterSpacing: 1,
-            boxShadow: '0 0 16px #0ff8',
-            cursor: 'pointer',
-            outline: 'none',
-            zIndex: 2100,
+        <>
+          <button
+            style={{
+              position: 'absolute',
+              left: 32,
+              bottom: 90,
+              width: '11vw',
+              minWidth: 90,
+              padding: '10px 0',
+              fontSize: 18,
+              borderRadius: 10,
+              border: 'none',
+              background: 'linear-gradient(90deg, #0ff, #09f)',
+              color: '#000',
+              fontWeight: 700,
+              letterSpacing: 1,
+              boxShadow: '0 0 16px #0ff8',
+              cursor: 'pointer',
+              outline: 'none',
+              zIndex: 2100,
+            }}
+            onClick={() => setShowResourcePopover(true)}
+          >
+            Add Resource
+          </button>
+          <button
+            style={{
+              position: 'absolute',
+              left: 32,
+              bottom: 32,
+              width: '11vw',
+              minWidth: 90,
+              padding: '10px 0',
+              fontSize: 18,
+              borderRadius: 10,
+              border: 'none',
+              background: 'linear-gradient(90deg, #0ff, #09f)',
+              color: '#000',
+              fontWeight: 700,
+              letterSpacing: 1,
+              boxShadow: '0 0 16px #0ff8',
+              cursor: 'pointer',
+              outline: 'none',
+              zIndex: 2100,
+            }}
+            onClick={handleSaveClick}
+          >
+            Save
+          </button>
+        </>
+      )}
+      {/* Resource Popover Modal */}
+      {showResourcePopover && canEdit && (
+        <ResourcePopover
+          onSelect={type => {
+            setDraggedItem(type);
+            setShowResourcePopover(false);
           }}
-          onClick={handleSaveClick}
-        >
-          Save
-        </button>
+          onClose={() => setShowResourcePopover(false)}
+          resourceRadii={resourceRadii}
+          setResourceRadii={setResourceRadii}
+        />
       )}
 
       {/* Collaboration Component */}
@@ -1044,840 +1104,6 @@ function PlanPage() {
           }}>
             <h3>No Access</h3>
             <p>You don't have permission to view this plan.</p>
-          </div>
-        </div>
-      )}
-
-      {/* Resource Panel Overlay */}
-      {canEdit && (
-        <div
-          style={{
-            position: 'absolute',
-            top: '10%',
-            left: 0,
-            width: '22vw',
-            minWidth: 140,
-            height: '80vh',
-            background: 'rgba(24,28,36,0.95)',
-            borderTopRightRadius: 20,
-            borderBottomRightRadius: 20,
-            boxShadow: '4px 0 20px rgba(0,255,255,0.15)',
-            border: '1px solid rgba(0,255,255,0.2)',
-            zIndex: 2000,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          padding: '24px 12px 18px 12px',
-          backdropFilter: 'blur(10px)',
-        }}
-      >
-        <h4 style={{ 
-          color: '#0ff', 
-          margin: '0 0 20px 0', 
-          fontWeight: 700, 
-          letterSpacing: 1.2,
-          fontSize: '1.1rem',
-          textAlign: 'center',
-          textShadow: '0 0 8px rgba(0,255,255,0.3)'
-        }}>
-          Resources
-        </h4>
-        {/* Resource Grid */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr 1fr',
-          gap: 16,
-          width: '100%',
-          justifyItems: 'center',
-          marginBottom: 12,
-          maxHeight: '75vh',
-          overflowY: 'auto',
-          paddingRight: '8px',
-        }}>
-          {/* School */}
-          <div style={{ 
-            display: 'flex', 
-            flexDirection: 'column', 
-            alignItems: 'center',
-            background: 'rgba(0,255,255,0.05)',
-            borderRadius: '12px',
-            padding: '12px 8px',
-            border: '1px solid rgba(0,255,255,0.1)',
-            transition: 'all 0.3s ease',
-            cursor: 'pointer',
-            width: '100%',
-            minHeight: '80px'
-          }}
-          onMouseEnter={(e) => {
-            e.target.style.background = 'rgba(0,255,255,0.1)';
-            e.target.style.borderColor = 'rgba(0,255,255,0.3)';
-          }}
-          onMouseLeave={(e) => {
-            e.target.style.background = 'rgba(0,255,255,0.05)';
-            e.target.style.borderColor = 'rgba(0,255,255,0.1)';
-          }}>
-            <img
-              src={schoolImg}
-              alt="school"
-              width={28}
-              height={28}
-              style={{ 
-                cursor: 'grab', 
-                filter: 'drop-shadow(0 0 4px rgba(0,255,255,0.4))',
-                marginBottom: '6px'
-              }}
-              onClick={() => setDraggedItem('school')}
-            />
-            <span style={{ 
-              fontSize: '10px', 
-              color: 'deepskyblue',
-              fontWeight: '600',
-              marginBottom: '4px'
-            }}>
-              School
-            </span>
-            <input
-              type="number"
-              min={50}
-              max={3000}
-              step={50}
-              value={resourceRadii.school}
-              onChange={e => setResourceRadii(r => ({ ...r, school: Number(e.target.value) }))}
-              style={{
-                width: '35px',
-                background: 'rgba(24,28,36,0.8)',
-                color: 'deepskyblue',
-                border: '1px solid deepskyblue',
-                borderRadius: 4,
-                textAlign: 'center',
-                fontSize: '9px',
-                padding: '2px'
-              }}
-            />
-            <span style={{ fontSize: '8px', color: 'deepskyblue', opacity: 0.7 }}>meters</span>
-          </div>
-
-          {/* Water */}
-          <div style={{ 
-            display: 'flex', 
-            flexDirection: 'column', 
-            alignItems: 'center',
-            background: 'rgba(0,255,255,0.05)',
-            borderRadius: '12px',
-            padding: '12px 8px',
-            border: '1px solid rgba(0,255,255,0.1)',
-            transition: 'all 0.3s ease',
-            cursor: 'pointer',
-            width: '100%',
-            minHeight: '80px'
-          }}
-          onMouseEnter={(e) => {
-            e.target.style.background = 'rgba(0,255,255,0.1)';
-            e.target.style.borderColor = 'rgba(0,255,255,0.3)';
-          }}
-          onMouseLeave={(e) => {
-            e.target.style.background = 'rgba(0,255,255,0.05)';
-            e.target.style.borderColor = 'rgba(0,255,255,0.1)';
-          }}>
-            <img
-              src={waterImg}
-              alt="water"
-              width={28}
-              height={28}
-              style={{ 
-                cursor: 'grab', 
-                filter: 'drop-shadow(0 0 4px rgba(0,255,255,0.4))',
-                marginBottom: '6px'
-              }}
-              onClick={() => setDraggedItem('water')}
-            />
-            <span style={{ 
-              fontSize: '10px', 
-              color: 'limegreen',
-              fontWeight: '600',
-              marginBottom: '4px'
-            }}>
-              Water
-            </span>
-            <input
-              type="number"
-              min={50}
-              max={3000}
-              step={50}
-              value={resourceRadii.water}
-              onChange={e => setResourceRadii(r => ({ ...r, water: Number(e.target.value) }))}
-              style={{
-                width: '35px',
-                background: 'rgba(24,28,36,0.8)',
-                color: 'limegreen',
-                border: '1px solid limegreen',
-                borderRadius: 4,
-                textAlign: 'center',
-                fontSize: '9px',
-                padding: '2px'
-              }}
-            />
-            <span style={{ fontSize: '8px', color: 'limegreen', opacity: 0.7 }}>meters</span>
-          </div>
-
-          {/* House */}
-          <div style={{ 
-            display: 'flex', 
-            flexDirection: 'column', 
-            alignItems: 'center',
-            background: 'rgba(0,255,255,0.05)',
-            borderRadius: '12px',
-            padding: '12px 8px',
-            border: '1px solid rgba(0,255,255,0.1)',
-            transition: 'all 0.3s ease',
-            cursor: 'pointer',
-            width: '100%',
-            minHeight: '80px'
-          }}
-          onMouseEnter={(e) => {
-            e.target.style.background = 'rgba(0,255,255,0.1)';
-            e.target.style.borderColor = 'rgba(0,255,255,0.3)';
-          }}
-          onMouseLeave={(e) => {
-            e.target.style.background = 'rgba(0,255,255,0.05)';
-            e.target.style.borderColor = 'rgba(0,255,255,0.1)';
-          }}>
-            <img
-              src={houseImg}
-              alt="house"
-              width={28}
-              height={28}
-              style={{ 
-                cursor: 'grab', 
-                filter: 'drop-shadow(0 0 4px rgba(0,255,255,0.4))',
-                marginBottom: '6px'
-              }}
-              onClick={() => setDraggedItem('house')}
-            />
-            <span style={{ 
-              fontSize: '10px', 
-              color: '#0ff',
-              fontWeight: '600',
-              marginBottom: '4px'
-            }}>
-              House
-            </span>
-          </div>
-
-          {/* Road */}
-          <div style={{ 
-            display: 'flex', 
-            flexDirection: 'column', 
-            alignItems: 'center',
-            background: 'rgba(0,255,255,0.05)',
-            borderRadius: '12px',
-            padding: '12px 8px',
-            border: '1px solid rgba(0,255,255,0.1)',
-            transition: 'all 0.3s ease',
-            cursor: 'pointer',
-            width: '100%',
-            minHeight: '80px'
-          }}
-          onMouseEnter={(e) => {
-            e.target.style.background = 'rgba(0,255,255,0.1)';
-            e.target.style.borderColor = 'rgba(0,255,255,0.3)';
-          }}
-          onMouseLeave={(e) => {
-            e.target.style.background = 'rgba(0,255,255,0.05)';
-            e.target.style.borderColor = 'rgba(0,255,255,0.1)';
-          }}>
-            <img
-              src={roadImg}
-              alt="road"
-              width={28}
-              height={28}
-              style={{ 
-                cursor: 'grab', 
-                filter: 'drop-shadow(0 0 4px rgba(0,255,255,0.4))',
-                marginBottom: '6px'
-              }}
-              onClick={() => setDraggedItem('road')}
-            />
-            <span style={{ 
-              fontSize: '10px', 
-              color: '#0ff',
-              fontWeight: '600',
-              marginBottom: '4px'
-            }}>
-              Road
-            </span>
-          </div>
-
-          {/* NEW ELEMENTS */}
-          
-          {/* Hospital */}
-          <div style={{ 
-            display: 'flex', 
-            flexDirection: 'column', 
-            alignItems: 'center',
-            background: 'rgba(0,255,255,0.05)',
-            borderRadius: '12px',
-            padding: '12px 8px',
-            border: '1px solid rgba(0,255,255,0.1)',
-            transition: 'all 0.3s ease',
-            cursor: 'pointer',
-            width: '100%',
-            minHeight: '80px'
-          }}
-          onMouseEnter={(e) => {
-            e.target.style.background = 'rgba(0,255,255,0.1)';
-            e.target.style.borderColor = 'rgba(0,255,255,0.3)';
-          }}
-          onMouseLeave={(e) => {
-            e.target.style.background = 'rgba(0,255,255,0.05)';
-            e.target.style.borderColor = 'rgba(0,255,255,0.1)';
-          }}>
-            <div 
-              style={{ 
-                fontSize: 28, 
-                cursor: 'grab', 
-                filter: 'drop-shadow(0 0 4px rgba(0,255,255,0.4))',
-                marginBottom: '6px'
-              }}
-              onClick={() => setDraggedItem('hospital')}
-            >
-              🏥
-            </div>
-            <span style={{ 
-              fontSize: '10px', 
-              color: 'red',
-              fontWeight: '600',
-              marginBottom: '4px'
-            }}>
-              Hospital
-            </span>
-            <input
-              type="number"
-              min={100}
-              max={5000}
-              step={100}
-              value={resourceRadii.hospital}
-              onChange={e => setResourceRadii(r => ({ ...r, hospital: Number(e.target.value) }))}
-              style={{
-                width: '35px',
-                background: 'rgba(24,28,36,0.8)',
-                color: 'red',
-                border: '1px solid red',
-                borderRadius: 4,
-                textAlign: 'center',
-                fontSize: '9px',
-                padding: '2px'
-              }}
-            />
-            <span style={{ fontSize: '8px', color: 'red', opacity: 0.7 }}>meters</span>
-          </div>
-
-          {/* Fire Station */}
-          <div style={{ 
-            display: 'flex', 
-            flexDirection: 'column', 
-            alignItems: 'center',
-            background: 'rgba(0,255,255,0.05)',
-            borderRadius: '12px',
-            padding: '12px 8px',
-            border: '1px solid rgba(0,255,255,0.1)',
-            transition: 'all 0.3s ease',
-            cursor: 'pointer',
-            width: '100%',
-            minHeight: '80px'
-          }}
-          onMouseEnter={(e) => {
-            e.target.style.background = 'rgba(0,255,255,0.1)';
-            e.target.style.borderColor = 'rgba(0,255,255,0.3)';
-          }}
-          onMouseLeave={(e) => {
-            e.target.style.background = 'rgba(0,255,255,0.05)';
-            e.target.style.borderColor = 'rgba(0,255,255,0.1)';
-          }}>
-            <div 
-              style={{ 
-                fontSize: 28, 
-                cursor: 'grab', 
-                filter: 'drop-shadow(0 0 4px rgba(0,255,255,0.4))',
-                marginBottom: '6px'
-              }}
-              onClick={() => setDraggedItem('fireStation')}
-            >
-              🚒
-            </div>
-            <span style={{ 
-              fontSize: '10px', 
-              color: 'orange',
-              fontWeight: '600',
-              marginBottom: '4px'
-            }}>
-              Fire Station
-            </span>
-            <input
-              type="number"
-              min={100}
-              max={3000}
-              step={100}
-              value={resourceRadii.fireStation}
-              onChange={e => setResourceRadii(r => ({ ...r, fireStation: Number(e.target.value) }))}
-              style={{
-                width: '35px',
-                background: 'rgba(24,28,36,0.8)',
-                color: 'orange',
-                border: '1px solid orange',
-                borderRadius: 4,
-                textAlign: 'center',
-                fontSize: '9px',
-                padding: '2px'
-              }}
-            />
-            <span style={{ fontSize: '8px', color: 'orange', opacity: 0.7 }}>meters</span>
-          </div>
-
-          {/* Police Station */}
-          <div style={{ 
-            display: 'flex', 
-            flexDirection: 'column', 
-            alignItems: 'center',
-            background: 'rgba(0,255,255,0.05)',
-            borderRadius: '12px',
-            padding: '12px 8px',
-            border: '1px solid rgba(0,255,255,0.1)',
-            transition: 'all 0.3s ease',
-            cursor: 'pointer',
-            width: '100%',
-            minHeight: '80px'
-          }}
-          onMouseEnter={(e) => {
-            e.target.style.background = 'rgba(0,255,255,0.1)';
-            e.target.style.borderColor = 'rgba(0,255,255,0.3)';
-          }}
-          onMouseLeave={(e) => {
-            e.target.style.background = 'rgba(0,255,255,0.05)';
-            e.target.style.borderColor = 'rgba(0,255,255,0.1)';
-          }}>
-            <div 
-              style={{ 
-                fontSize: 28, 
-                cursor: 'grab', 
-                filter: 'drop-shadow(0 0 4px rgba(0,255,255,0.4))',
-                marginBottom: '6px'
-              }}
-              onClick={() => setDraggedItem('police')}
-            >
-              🚔
-            </div>
-            <span style={{ 
-              fontSize: '10px', 
-              color: 'blue',
-              fontWeight: '600',
-              marginBottom: '4px'
-            }}>
-              Police
-            </span>
-            <input
-              type="number"
-              min={200}
-              max={5000}
-              step={100}
-              value={resourceRadii.police}
-              onChange={e => setResourceRadii(r => ({ ...r, police: Number(e.target.value) }))}
-              style={{
-                width: '35px',
-                background: 'rgba(24,28,36,0.8)',
-                color: 'blue',
-                border: '1px solid blue',
-                borderRadius: 4,
-                textAlign: 'center',
-                fontSize: '9px',
-                padding: '2px'
-              }}
-            />
-            <span style={{ fontSize: '8px', color: 'blue', opacity: 0.7 }}>meters</span>
-          </div>
-
-          {/* Park */}
-          <div style={{ 
-            display: 'flex', 
-            flexDirection: 'column', 
-            alignItems: 'center',
-            background: 'rgba(0,255,255,0.05)',
-            borderRadius: '12px',
-            padding: '12px 8px',
-            border: '1px solid rgba(0,255,255,0.1)',
-            transition: 'all 0.3s ease',
-            cursor: 'pointer',
-            width: '100%',
-            minHeight: '80px'
-          }}
-          onMouseEnter={(e) => {
-            e.target.style.background = 'rgba(0,255,255,0.1)';
-            e.target.style.borderColor = 'rgba(0,255,255,0.3)';
-          }}
-          onMouseLeave={(e) => {
-            e.target.style.background = 'rgba(0,255,255,0.05)';
-            e.target.style.borderColor = 'rgba(0,255,255,0.1)';
-          }}>
-            <div 
-              style={{ 
-                fontSize: 28, 
-                cursor: 'grab', 
-                filter: 'drop-shadow(0 0 4px rgba(0,255,255,0.4))',
-                marginBottom: '6px'
-              }}
-              onClick={() => setDraggedItem('park')}
-            >
-              🌳
-            </div>
-            <span style={{ 
-              fontSize: '10px', 
-              color: 'forestgreen',
-              fontWeight: '600',
-              marginBottom: '4px'
-            }}>
-              Park
-            </span>
-            <input
-              type="number"
-              min={100}
-              max={2000}
-              step={50}
-              value={resourceRadii.park}
-              onChange={e => setResourceRadii(r => ({ ...r, park: Number(e.target.value) }))}
-              style={{
-                width: '35px',
-                background: 'rgba(24,28,36,0.8)',
-                color: 'forestgreen',
-                border: '1px solid forestgreen',
-                borderRadius: 4,
-                textAlign: 'center',
-                fontSize: '9px',
-                padding: '2px'
-              }}
-            />
-            <span style={{ fontSize: '8px', color: 'forestgreen', opacity: 0.7 }}>meters</span>
-          </div>
-          {/* Bus Stop */}
-          <div style={{ 
-            display: 'flex', 
-            flexDirection: 'column', 
-            alignItems: 'center',
-            background: 'rgba(0,255,255,0.05)',
-            borderRadius: '12px',
-            padding: '12px 8px',
-            border: '1px solid rgba(0,255,255,0.1)',
-            transition: 'all 0.3s ease',
-            cursor: 'pointer',
-            width: '100%',
-            minHeight: '80px'
-          }}
-          onMouseEnter={(e) => {
-            e.target.style.background = 'rgba(0,255,255,0.1)';
-            e.target.style.borderColor = 'rgba(0,255,255,0.3)';
-          }}
-          onMouseLeave={(e) => {
-            e.target.style.background = 'rgba(0,255,255,0.05)';
-            e.target.style.borderColor = 'rgba(0,255,255,0.1)';
-          }}>
-            <div 
-              style={{ 
-                fontSize: 28, 
-                cursor: 'grab', 
-                filter: 'drop-shadow(0 0 4px rgba(0,255,255,0.4))',
-                marginBottom: '6px'
-              }}
-              onClick={() => setDraggedItem('busStop')}
-            >
-              🚌
-            </div>
-            <span style={{ 
-              fontSize: '10px', 
-              color: 'yellow',
-              fontWeight: '600',
-              marginBottom: '4px'
-            }}>
-              Bus Stop
-            </span>
-            <input
-              type="number"
-              min={50}
-              max={800}
-              step={25}
-              value={resourceRadii.busStop}
-              onChange={e => setResourceRadii(r => ({ ...r, busStop: Number(e.target.value) }))}
-              style={{
-                width: '35px',
-                background: 'rgba(24,28,36,0.8)',
-                color: 'yellow',
-                border: '1px solid yellow',
-                borderRadius: 4,
-                textAlign: 'center',
-                fontSize: '9px',
-                padding: '2px'
-              }}
-            />
-            <span style={{ fontSize: '8px', color: 'yellow', opacity: 0.7 }}>meters</span>
-          </div>
-
-          {/* Power Plant */}
-          <div style={{ 
-            display: 'flex', 
-            flexDirection: 'column', 
-            alignItems: 'center',
-            background: 'rgba(0,255,255,0.05)',
-            borderRadius: '12px',
-            padding: '12px 8px',
-            border: '1px solid rgba(0,255,255,0.1)',
-            transition: 'all 0.3s ease',
-            cursor: 'pointer',
-            width: '100%',
-            minHeight: '80px'
-          }}
-          onMouseEnter={(e) => {
-            e.target.style.background = 'rgba(0,255,255,0.1)';
-            e.target.style.borderColor = 'rgba(0,255,255,0.3)';
-          }}
-          onMouseLeave={(e) => {
-            e.target.style.background = 'rgba(0,255,255,0.05)';
-            e.target.style.borderColor = 'rgba(0,255,255,0.1)';
-          }}>
-            <div 
-              style={{ 
-                fontSize: 28, 
-                cursor: 'grab', 
-                filter: 'drop-shadow(0 0 4px rgba(0,255,255,0.4))',
-                marginBottom: '6px'
-              }}
-              onClick={() => setDraggedItem('powerPlant')}
-            >
-              ⚡
-            </div>
-            <span style={{ 
-              fontSize: '10px', 
-              color: 'yellow',
-              fontWeight: '600',
-              marginBottom: '4px'
-            }}>
-              Power Plant
-            </span>
-            <input
-              type="number"
-              min={500}
-              max={5000}
-              step={100}
-              value={resourceRadii.powerPlant}
-              onChange={e => setResourceRadii(r => ({ ...r, powerPlant: Number(e.target.value) }))}
-              style={{
-                width: '35px',
-                background: 'rgba(24,28,36,0.8)',
-                color: 'yellow',
-                border: '1px solid yellow',
-                borderRadius: 4,
-                textAlign: 'center',
-                fontSize: '9px',
-                padding: '2px'
-              }}
-            />
-            <span style={{ fontSize: '8px', color: 'yellow', opacity: 0.7 }}>meters</span>
-          </div>
-
-          {/* Recycling Center */}
-          <div style={{ 
-            display: 'flex', 
-            flexDirection: 'column', 
-            alignItems: 'center',
-            background: 'rgba(0,255,255,0.05)',
-            borderRadius: '12px',
-            padding: '12px 8px',
-            border: '1px solid rgba(0,255,255,0.1)',
-            transition: 'all 0.3s ease',
-            cursor: 'pointer',
-            width: '100%',
-            minHeight: '80px'
-          }}
-          onMouseEnter={(e) => {
-            e.target.style.background = 'rgba(0,255,255,0.1)';
-            e.target.style.borderColor = 'rgba(0,255,255,0.3)';
-          }}
-          onMouseLeave={(e) => {
-            e.target.style.background = 'rgba(0,255,255,0.05)';
-            e.target.style.borderColor = 'rgba(0,255,255,0.1)';
-          }}>
-            <div 
-              style={{ 
-                fontSize: 28, 
-                cursor: 'grab', 
-                filter: 'drop-shadow(0 0 4px rgba(0,255,255,0.4))',
-                marginBottom: '6px'
-              }}
-              onClick={() => setDraggedItem('recycling')}
-            >
-              ♻️
-            </div>
-            <span style={{ 
-              fontSize: '10px', 
-              color: 'green',
-              fontWeight: '600',
-              marginBottom: '4px'
-            }}>
-              Recycling
-            </span>
-            <input
-              type="number"
-              min={100}
-              max={1000}
-              step={50}
-              value={resourceRadii.recycling}
-              onChange={e => setResourceRadii(r => ({ ...r, recycling: Number(e.target.value) }))}
-              style={{
-                width: '35px',
-                background: 'rgba(24,28,36,0.8)',
-                color: 'green',
-                border: '1px solid green',
-                borderRadius: 4,
-                textAlign: 'center',
-                fontSize: '9px',
-                padding: '2px'
-              }}
-            />
-            <span style={{ fontSize: '8px', color: 'green', opacity: 0.7 }}>meters</span>
-          </div>
-
-          {/* Communication Tower */}
-          <div style={{ 
-            display: 'flex', 
-            flexDirection: 'column', 
-            alignItems: 'center',
-            background: 'rgba(0,255,255,0.05)',
-            borderRadius: '12px',
-            padding: '12px 8px',
-            border: '1px solid rgba(0,255,255,0.1)',
-            transition: 'all 0.3s ease',
-            cursor: 'pointer',
-            width: '100%',
-            minHeight: '80px'
-          }}
-          onMouseEnter={(e) => {
-            e.target.style.background = 'rgba(0,255,255,0.1)';
-            e.target.style.borderColor = 'rgba(0,255,255,0.3)';
-          }}
-          onMouseLeave={(e) => {
-            e.target.style.background = 'rgba(0,255,255,0.05)';
-            e.target.style.borderColor = 'rgba(0,255,255,0.1)';
-          }}>
-            <div 
-              style={{ 
-                fontSize: 28, 
-                cursor: 'grab', 
-                filter: 'drop-shadow(0 0 4px rgba(0,255,255,0.4))',
-                marginBottom: '6px'
-              }}
-              onClick={() => setDraggedItem('tower')}
-            >
-              📡
-            </div>
-            <span style={{ 
-              fontSize: '10px', 
-              color: 'silver',
-              fontWeight: '600',
-              marginBottom: '4px'
-            }}>
-              Tower
-            </span>
-            <input
-              type="number"
-              min={1000}
-              max={8000}
-              step={200}
-              value={resourceRadii.tower}
-              onChange={e => setResourceRadii(r => ({ ...r, tower: Number(e.target.value) }))}
-              style={{
-                width: '35px',
-                background: 'rgba(24,28,36,0.8)',
-                color: 'silver',
-                border: '1px solid silver',
-                borderRadius: 4,
-                textAlign: 'center',
-                fontSize: '9px',
-                padding: '2px'
-              }}
-            />
-            <span style={{ fontSize: '8px', color: 'silver', opacity: 0.7 }}>meters</span>
-          </div>
-
-        </div>
-        <p style={{ fontSize: '0.8em', color: '#0ff', marginTop: 8, textAlign: 'center' }}>
-          Click an icon, then click on map to place it.
-        </p>
-      </div>
-      )}
-
-      {showSavePopup && (
-        <div className="modal-overlay">
-          <div className="modal-content">
-            <h3>Save Plan</h3>
-            {/* Only show input if not editing */}
-            {!editingPlanId && (
-              <input
-                type="text"
-                placeholder="Enter plan title"
-                value={planTitle}
-                onChange={e => setPlanTitle(e.target.value)}
-              />
-            )}
-            <button onClick={handleSavePlan}>Save</button>
-            <button onClick={() => setShowSavePopup(false)}>Cancel</button>
-          </div>
-        </div>
-      )}
-
-      {/* House Details Form Modal */}
-      {showHouseForm && (
-        <div className="modal-overlay">
-          <div className="modal-content">
-            <h3>Add House Details</h3>
-            <div style={{ marginBottom: '15px' }}>
-              <label style={{ display: 'block', marginBottom: '5px', color: '#0ff' }}>
-                Number of Residents:
-              </label>
-              <input
-                type="number"
-                min="0"
-                value={houseFormData.residents}
-                onChange={e => setHouseFormData(prev => ({ ...prev, residents: e.target.value }))}
-                style={{
-                  width: '100%',
-                  padding: '8px',
-                  borderRadius: '4px',
-                  border: '1px solid #555',
-                  background: 'rgba(255,255,255,0.1)',
-                  color: '#fff'
-                }}
-              />
-            </div>
-            <div style={{ marginBottom: '15px' }}>
-              <label style={{ display: 'block', marginBottom: '5px', color: '#0ff' }}>
-                Number of Students:
-              </label>
-              <input
-                type="number"
-                min="0"
-                value={houseFormData.students}
-                onChange={e => setHouseFormData(prev => ({ ...prev, students: e.target.value }))}
-                style={{
-                  width: '100%',
-                  padding: '8px',
-                  borderRadius: '4px',
-                  border: '1px solid #555',
-                  background: 'rgba(255,255,255,0.1)',
-                  color: '#fff'
-                }}
-              />
-            </div>
-            <div style={{ display: 'flex', gap: '10px' }}>
-              <button onClick={handleHouseFormSubmit}>Add House</button>
-              <button onClick={() => setShowHouseForm(false)}>Cancel</button>
-            </div>
           </div>
         </div>
       )}
@@ -2002,7 +1228,7 @@ function PlanPage() {
               );
             })}
             
-            {houses
+            {mergedHouses
               .filter(house =>
                 (house.lat !== undefined && house.long !== undefined && !isNaN(house.lat) && !isNaN(house.long)) ||
                 (house.latitude !== undefined && house.longitude !== undefined && !isNaN(house.latitude) && !isNaN(house.longitude))
@@ -2038,38 +1264,7 @@ function PlanPage() {
         <IconOverlay />
       </div>
 
-      {/* Quality Stats Panel */}
-      <div style={{
-        position: 'absolute',
-        top: 40,
-        right: 40,
-        width: 340,
-        background: 'rgba(24,28,36,0.97)',
-        color: '#0ff',
-        borderRadius: 16,
-        boxShadow: '0 0 24px #0ff4',
-        padding: 24,
-        zIndex: 3000,
-        minHeight: 120,
-        maxHeight: 420,
-        overflowY: 'auto'
-      }}>
-        <h3 style={{marginTop:0, color:'#0ff'}}>Plan Quality Score</h3>
-        {resourceStats.length === 0 ? (
-          <div>No resources placed yet.</div>
-        ) : (
-          resourceStats.map((stat, idx) => (
-            <div key={idx} style={{marginBottom: 18, borderBottom: '1px solid #0ff3', paddingBottom: 8}}>
-              <div><b>Resource:</b> {stat.label}</div>
-              <div><b>Houses Covered:</b> {stat.houses}</div>
-              <div><b>Residents Covered:</b> {stat.residents}</div>
-              {stat.type === "school" && (
-                <div><b>Students Covered:</b> {stat.students}</div>
-              )}
-            </div>
-          ))
-        )}
-      </div>
+      {/* Removed plan quality score panel UI */}
     </div>
   );
 }

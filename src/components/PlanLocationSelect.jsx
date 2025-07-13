@@ -55,7 +55,7 @@ function PlanLocationSelect() {
       >
         ← Back
       </button>
-      <h2>Select Plan Location</h2>
+      <h2 style={{ color: "#0cc", fontWeight: 800, fontSize: 28, marginBottom: 18, letterSpacing: 1 }}>Select Plan Location</h2>
       {!mode && (
         <div style={{ display: "flex", gap: 24 }}>
           <button className="primary" onClick={handleCurrentLocation}>
