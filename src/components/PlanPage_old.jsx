@@ -7,7 +7,7 @@ import { collection, getDocs, doc, getDoc, updateDoc } from "firebase/firestore"
 import { onAuthStateChanged } from 'firebase/auth';
 
 import schoolImg from '../assets/school.png';
-import waterImg from '../assets/water.png';
+///import waterImg from '../assets/water.png';
 import houseImg from '../assets/house.png';
 import roadImg from '../assets/road.png';
 
@@ -27,7 +27,7 @@ import ResourcePopover from './ResourcePopover';
 const resourceIcons = {
   // Basic Infrastructure
   school: schoolImg,
-  water: waterImg,
+  water: '💧',
   house: houseImg,
   road: roadImg,
   
